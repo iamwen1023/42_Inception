@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    build: ./mariadb
+    #env_file:
+    #  - .env
+    environment:
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_ROOT_PASSWOR=${SQL_ROOT_PASSWOR}
+    expose:
+      - 3306
+    restart: always
+    volumes:
+      - database:/var/lib/mysql
+    networks:
+      - inception
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    build: ./nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+  wordpress:
+    container_name: wordpress
+    image: wordpress:latest
+    build: ./wordpress
+    expose:
+      - 9000
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+networks:
+  inception:
+    driver: bridge
+volumes:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/wlo/data
+  wordpress:
+    driver: local
+    driver_opts: 
+      type: none
+      o: bind
+      device: /home/wlo/wordpress
+
+    
+ # WordPress:
+ #   container_name: wordpress
+ #   image: wordpress:latest
+ #   build: ./wordpress
+ #   ports:
+ #     # local:container
+ #     - "1337:80"

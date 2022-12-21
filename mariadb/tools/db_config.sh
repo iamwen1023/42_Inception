@@ -1,12 +1,4 @@
 #!/bin/bash
-export SQL_DATABASE=hello
-export SQL_USER=wlo
-export SQL_PASSWORD=wlo42
-export SQL_ROOT_PASSWOR=wlowlo
-echo $SQL_DATABASE
-echo $SQL_USER
-echo $SQL_PASSWORD
-echo $SQL_ROOT_PASSWOR
 service mysql start;
 mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 mysql -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';"
