@@ -5,13 +5,13 @@ services:
     container_name: mariadb
     image: mariadb:latest
     build: ./mariadb
-    #env_file:
-    #  - .env
+    env_file:
+      - .env
     environment:
       - SQL_DATABASE=${SQL_DATABASE}
       - SQL_USER=${SQL_USER}
       - SQL_PASSWORD=${SQL_PASSWORD}
-      - SQL_ROOT_PASSWOR=${SQL_ROOT_PASSWOR}
+      - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
     expose:
       - 3306
     restart: always
@@ -23,6 +23,9 @@ services:
     container_name: nginx
     image: nginx:latest
     build: ./nginx
+    depends_on:
+      wordpress:
+        condition: service_started
     ports:
       - "443:443"
     volumes:
@@ -33,6 +36,9 @@ services:
     container_name: wordpress
     image: wordpress:latest
     build: ./wordpress
+    depends_on:
+      mariadb:
+        condition: service_started
     expose:
       - 9000
     volumes:
