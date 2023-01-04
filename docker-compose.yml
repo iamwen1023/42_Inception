@@ -39,6 +39,11 @@ services:
     depends_on:
       mariadb:
         condition: service_started
+    environment:
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
     expose:
       - 9000
     volumes:
