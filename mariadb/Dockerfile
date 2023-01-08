@@ -11,4 +11,4 @@ RUN mkdir -p /run/mysqld \
 
 CMD bash /etc/mysql/db_config.sh
 
-# CMD ["tail", "-f", "/dev/null"]
+#CMD ["tail", "-f", "/dev/null"]

@@ -13,7 +13,7 @@ RUN \
 
 RUN openssl req -x509 -nodes -out /etc/nginx/inception.crt -keyout /etc/nginx/inception.key -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=wlo.42.fr/UID=wlo"
 
-#RUN mkdir -p /var/run/nginx
+RUN mkdir -p /var/run/nginx
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 

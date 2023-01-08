@@ -12,6 +12,7 @@ services:
       - SQL_USER=${SQL_USER}
       - SQL_PASSWORD=${SQL_PASSWORD}
       - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
+      - MARIADB_ROOT_PASSWORD = ${SQL_ROOT_PASSWORD}
     expose:
       - 3306
     restart: always

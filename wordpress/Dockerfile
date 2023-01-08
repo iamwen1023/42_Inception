@@ -12,11 +12,13 @@ RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
 COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
-#COPY ./tools/auto_config.sh	/etc/auto_config.sh	
+COPY ./tools/auto_config.sh	/etc/auto_config.sh	
 #CMD ["tail", "-f", "/dev/null"]
 #CMD bash etc/auto_config.sh
 #CMD bash php-fpm7.3
-ENTRYPOINT /usr/sbin/php-fpm7.3 --nodaemonize
+#USER www-data
+CMD bash /etc/auto_config.sh
+#ENTRYPOINT /usr/sbin/php-fpm7.3 --nodaemonize
 
 
 
