@@ -1,0 +1,1 @@
+mysql -e "INSERT INTO "test.wp_posts" (post_author, post_content, post_title, post_excerpt, to_ping, pinged, post_content_filtered) VALUES(1, 'new', 'new', 'new', 'y', 'y','y');

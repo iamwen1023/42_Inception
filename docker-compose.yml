@@ -3,7 +3,6 @@ version: '3'
 services:
   mariadb:
     container_name: mariadb
-    image: mariadb:latest
     build: ./mariadb
     env_file:
       - .env
@@ -22,7 +21,6 @@ services:
       - inception
   nginx:
     container_name: nginx
-    image: nginx:latest
     build: ./nginx
     depends_on:
       wordpress:
@@ -35,7 +33,6 @@ services:
       - inception
   wordpress:
     container_name: wordpress
-    image: wordpress:latest
     build: ./wordpress
     depends_on:
       mariadb:
@@ -67,12 +64,3 @@ volumes:
       type: none
       o: bind
       device: /home/wlo/wordpress
-
-    
- # WordPress:
- #   container_name: wordpress
- #   image: wordpress:latest
- #   build: ./wordpress
- #   ports:
- #     # local:container
- #     - "1337:80"
