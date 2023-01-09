@@ -11,9 +11,9 @@ COPY ./tools/db_config.sh	/etc/mysql/db_config.sh
 RUN mkdir -p /run/mysqld && \
     chown -R mysql:mysql /run/mysqld && \
     chown -R mysql:mysql /var/lib/mysql && \
-    #chmod 777 /run/mysqld && \
+    chmod 777 /run/mysqld && \
     chmod +x /etc/mysql/db_config.sh
 
-CMD bash /etc/mysql/db_config.sh
+#CMD bash /etc/mysql/db_config.sh
 
-#CMD ["tail", "-f", "/dev/null"]
+CMD ["tail", "-f", "/dev/null"]
