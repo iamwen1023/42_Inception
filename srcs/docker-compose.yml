@@ -3,6 +3,7 @@ version: '3'
 services:
   mariadb:
     container_name: mariadb
+    image: mariadb:wlo1.0
     build: ./mariadb
     env_file:
       - .env
@@ -19,40 +20,42 @@ services:
       - database:/var/lib/mysql
     networks:
       - inception
-  # nginx:
-  #   container_name: nginx
-  #   build: ./nginx
-  #   depends_on:
-  #     wordpress:
-  #       condition: service_started
-  #   ports:
-  #     - "443:443"
-  #   volumes:
-  #     - wordpress:/var/www/wordpress
-  #   networks:
-  #     - inception
-  # wordpress:
-  #   container_name: wordpress
-  #   build: ./wordpress
-  #   depends_on:
-  #     mariadb:
-  #       condition: service_started
-  #   environment:
-  #     - SQL_DATABASE=${SQL_DATABASE}
-  #     - SQL_USER=${SQL_USER}
-  #     - SQL_PASSWORD=${SQL_PASSWORD}
-  #     - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
-        # - WORDPRESS_URL=${WORDPRESS_URL} 
-        # - WORDPRESS_TITLE=${WORDPRESS_TITLE}
-        # - WORDPRESS_AMD_USER=${WORDPRESS_AMD_USER}
-        # - WORDPRESS_AMD_USER_PSW=${WORDPRESS_AMD_USER_PSW}
-        # - ADMIN_EMAIL=${ADMIN_EMAIL}
-  #   expose:
-  #     - 9000
-  #   volumes:
-  #     - wordpress:/var/www/wordpress
-  #   networks:
-  #     - inception
+  nginx:
+    container_name: nginx
+    image: nginx:wlo1.0
+    build: ./nginx
+    depends_on:
+      wordpress:
+        condition: service_started
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+  wordpress:
+    container_name: wordpress
+    image: wordpress:wlo1.0
+    build: ./wordpress
+    depends_on:
+      mariadb:
+        condition: service_started
+    environment:
+      - SQL_DATABASE=${SQL_DATABASE}
+      - SQL_USER=${SQL_USER}
+      - SQL_PASSWORD=${SQL_PASSWORD}
+      - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
+      - WORDPRESS_URL=${WORDPRESS_URL} 
+      - WORDPRESS_TITLE=${WORDPRESS_TITLE}
+      - WORDPRESS_AMD_USER=${WORDPRESS_AMD_USER}
+      - WORDPRESS_AMD_USER_PSW=${WORDPRESS_AMD_USER_PSW}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+    expose:
+      - 9000
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
 networks:
   inception:
     driver: bridge
@@ -62,10 +65,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/wlo/data
+      device: /home/wlo/data/database
   wordpress:
     driver: local
     driver_opts: 
       type: none
       o: bind
-      device: /home/wlo/wordpress
+      device: /home/wlo/data/wordpress

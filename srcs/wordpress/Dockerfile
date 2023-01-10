@@ -13,11 +13,13 @@ COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/php-fpm.conf
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 COPY ./tools/auto_config.sh	/etc/auto_config.sh	
-#CMD ["tail", "-f", "/dev/null"]
+
 #CMD bash etc/auto_config.sh
 #CMD bash php-fpm7.3
 #USER www-data
+#WORKDIR /var/www/wordpress
 CMD bash /etc/auto_config.sh
+#CMD ["tail", "-f", "/dev/null"]
 #ENTRYPOINT /usr/sbin/php-fpm7.3 --nodaemonize
 
 
