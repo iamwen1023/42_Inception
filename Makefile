@@ -1,7 +1,5 @@
 NAME			=	inception
 COMPOSE_FILE	=	srcs/docker-compose.yml
-ENV_FILE		=	srcs/.env
-
 FLAGS			=	-f ${COMPOSE_FILE} \
 					-p ${NAME}
 
@@ -10,7 +8,7 @@ all: build
 build:
 	@mkdir -p /home/wlo/data/database
 	@mkdir -p /home/wlo/data/wordpress
-	@sudo docker compose ${FLAGS} up -d 
+	@docker compose ${FLAGS} up -d 
 	@echo - docker services are up 
 
 start:
